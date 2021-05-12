@@ -51,6 +51,7 @@ export const RecordList: React.FC = (props) => {
           label="Дата записи"
           render={(data: any) => {
             const formatter = new Intl.DateTimeFormat("ru", {
+              timeZone: "Asia/Vladivostok",
               weekday: "long",
               year: "numeric",
               month: "long",
@@ -59,9 +60,6 @@ export const RecordList: React.FC = (props) => {
               minute: "numeric",
             });
             const date = new Date(data.date);
-            date.setHours(date.getHours() + 5);
-
-            console.log(formatter.format(date));
 
             return formatter.format(date);
           }}
