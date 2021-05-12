@@ -22,7 +22,12 @@ export const RecordList: React.FC = (props) => {
       title="Список запросов на запись"
     >
       <Datagrid isRowSelectable={() => false}>
-        <ReferenceField label="Пользователь" source="userId" reference="users">
+        <ReferenceField
+          link="show"
+          label="Пользователь"
+          source="userId"
+          reference="users"
+        >
           <TextField source="userName" />
         </ReferenceField>
         <ReferenceField
@@ -45,9 +50,20 @@ export const RecordList: React.FC = (props) => {
         <FunctionField
           label="Дата записи"
           render={(data: any) => {
+            const formatter = new Intl.DateTimeFormat("ru", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
+            });
             const date = new Date(data.date);
+            date.setHours(date.getHours() + 5);
 
-            return date.toLocaleString("ru-RU");
+            console.log(formatter.format(date));
+
+            return formatter.format(date);
           }}
         />
         {admin && <DeleteButton />}
